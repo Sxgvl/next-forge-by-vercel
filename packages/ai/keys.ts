@@ -4,7 +4,7 @@ import { z } from "zod";
 export const keys = () =>
   createEnv({
     server: {
-      OPENAI_API_KEY: z.string().startsWith("sk-").optional(),
+      OPENAI_API_KEY: z.string().startsWith("sk-").optional().or(z.literal("")),
     },
     runtimeEnv: {
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,

@@ -4,7 +4,11 @@ import { z } from "zod";
 export const keys = () =>
   createEnv({
     server: {
-      LIVEBLOCKS_SECRET: z.string().startsWith("sk_").optional(),
+      LIVEBLOCKS_SECRET: z
+        .string()
+        .startsWith("sk_")
+        .optional()
+        .or(z.literal("")),
     },
     runtimeEnv: {
       LIVEBLOCKS_SECRET: process.env.LIVEBLOCKS_SECRET,

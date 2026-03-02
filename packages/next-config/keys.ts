@@ -17,10 +17,10 @@ export const keys = () =>
       VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
     },
     client: {
-      NEXT_PUBLIC_APP_URL: z.url(),
-      NEXT_PUBLIC_WEB_URL: z.url(),
-      NEXT_PUBLIC_API_URL: z.url().optional(),
-      NEXT_PUBLIC_DOCS_URL: z.url().optional(),
+      NEXT_PUBLIC_APP_URL: z.string().url(),
+      NEXT_PUBLIC_WEB_URL: z.string().url(),
+      NEXT_PUBLIC_API_URL: z.string().url().optional().or(z.literal("")),
+      NEXT_PUBLIC_DOCS_URL: z.string().url().optional().or(z.literal("")),
     },
     runtimeEnv: {
       ANALYZE: process.env.ANALYZE,

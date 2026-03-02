@@ -1,8 +1,6 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
-  "compilerOptions": {
-    "baseUrl": "."
-  },
+  "compilerOptions": { "ignoreDeprecations": "6.0", "baseUrl": "." },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

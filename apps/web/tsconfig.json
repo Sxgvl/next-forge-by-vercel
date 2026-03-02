@@ -4,6 +4,7 @@
     "@repo/cms/typescript-config.json"
   ],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],

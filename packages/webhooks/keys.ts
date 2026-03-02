@@ -6,7 +6,8 @@ export const keys = () =>
     server: {
       SVIX_TOKEN: z
         .union([z.string().startsWith("sk_"), z.string().startsWith("testsk_")])
-        .optional(),
+        .optional()
+        .or(z.literal("")),
     },
     runtimeEnv: {
       SVIX_TOKEN: process.env.SVIX_TOKEN,

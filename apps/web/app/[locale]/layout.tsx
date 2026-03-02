@@ -1,4 +1,5 @@
 import "./styles.css";
+import { ClerkProvider } from "@clerk/nextjs";
 import { AnalyticsProvider } from "@repo/analytics/provider";
 import { Toolbar as CMSToolbar } from "@repo/cms/components/toolbar";
 import { DesignSystemProvider } from "@repo/design-system";
@@ -28,15 +29,17 @@ const RootLayout = async ({ children, params }: RootLayoutProperties) => {
       suppressHydrationWarning
     >
       <body>
-        <AnalyticsProvider>
-          <DesignSystemProvider>
-            <Header dictionary={dictionary} />
-            {children}
-            <Footer />
-          </DesignSystemProvider>
-          <Toolbar />
-          <CMSToolbar />
-        </AnalyticsProvider>
+        <ClerkProvider>
+          <AnalyticsProvider>
+            <DesignSystemProvider>
+              <Header dictionary={dictionary} />
+              {children}
+              <Footer />
+            </DesignSystemProvider>
+            <Toolbar />
+            <CMSToolbar />
+          </AnalyticsProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
