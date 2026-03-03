@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import "./styles.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { AnalyticsProvider } from "@repo/analytics/provider";
+import { AuthProvider } from "@repo/auth/provider";
 import { DesignSystemProvider } from "@repo/design-system";
 import { fonts } from "@repo/design-system/lib/fonts";
 import { Toolbar } from "@repo/feature-flags/components/toolbar";
@@ -14,7 +14,7 @@ type RootLayoutProperties = {
 const RootLayout = ({ children }: RootLayoutProperties) => (
   <html className={fonts} lang="en" suppressHydrationWarning>
     <body>
-      <ClerkProvider>
+      <AuthProvider>
         <AnalyticsProvider>
           <DesignSystemProvider
             helpUrl={env.NEXT_PUBLIC_DOCS_URL}
@@ -31,7 +31,7 @@ const RootLayout = ({ children }: RootLayoutProperties) => (
           </DesignSystemProvider>
         </AnalyticsProvider>
         <Toolbar />
-      </ClerkProvider>
+      </AuthProvider>
     </body>
   </html>
 );

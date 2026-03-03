@@ -1,6 +1,6 @@
 import "./styles.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { AnalyticsProvider } from "@repo/analytics/provider";
+import { AuthProvider } from "@repo/auth/provider";
 import { Toolbar as CMSToolbar } from "@repo/cms/components/toolbar";
 import { DesignSystemProvider } from "@repo/design-system";
 import { fonts } from "@repo/design-system/lib/fonts";
@@ -29,7 +29,7 @@ const RootLayout = async ({ children, params }: RootLayoutProperties) => {
       suppressHydrationWarning
     >
       <body>
-        <ClerkProvider>
+        <AuthProvider>
           <AnalyticsProvider>
             <DesignSystemProvider>
               <Header dictionary={dictionary} />
@@ -39,7 +39,7 @@ const RootLayout = async ({ children, params }: RootLayoutProperties) => {
             <Toolbar />
             <CMSToolbar />
           </AnalyticsProvider>
-        </ClerkProvider>
+        </AuthProvider>
       </body>
     </html>
   );
