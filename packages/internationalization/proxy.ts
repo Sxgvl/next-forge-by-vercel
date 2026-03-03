@@ -21,8 +21,14 @@ const I18nMiddleware = createI18nMiddleware({
   },
 });
 
-export const internationalizationMiddleware = (request: NextRequest) =>
-  I18nMiddleware(request);
+export const internationalizationMiddleware = (request: NextRequest) => {
+  try {
+    return I18nMiddleware(request);
+  } catch (error) {
+    console.error("Internationalization middleware error:", error);
+    return;
+  }
+};
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],

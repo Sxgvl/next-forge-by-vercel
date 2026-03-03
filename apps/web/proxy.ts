@@ -21,6 +21,17 @@ const securityHeaders = env.FLAGS_SECRET
   ? securityMiddleware(noseconeOptionsWithToolbar)
   : securityMiddleware(noseconeOptions);
 
+// Custom middleware wrapper for i18n to handle errors gracefully
+const safeI18nMiddleware = async (request: NextRequest) => {
+  try {
+    const response = await internationalizationMiddleware(request);
+    return response;
+  } catch (error) {
+    console.error("I18n middleware error:", error);
+    return;
+  }
+};
+
 // Custom middleware for Arcjet security checks
 const arcjetMiddleware = async (request: NextRequest) => {
   if (!env.ARCJET_KEY) {
@@ -47,7 +58,7 @@ const arcjetMiddleware = async (request: NextRequest) => {
 const composedMiddleware = createNEMO(
   {},
   {
-    before: [internationalizationMiddleware, arcjetMiddleware],
+    before: [safeI18nMiddleware, arcjetMiddleware],
   }
 );
 

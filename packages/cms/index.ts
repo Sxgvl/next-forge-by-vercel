@@ -1,12 +1,9 @@
 import { basehub as basehubClient, fragmentOn } from "basehub";
-// ensures types are passed through to apps that use this package
-import type * as _types from "./basehub-types.d.ts";
 import { keys } from "./keys";
 import "./basehub.config";
 
-const basehub = basehubClient({
-  token: keys().BASEHUB_TOKEN,
-});
+const token = keys().BASEHUB_TOKEN;
+const basehub = token ? basehubClient({ token }) : null;
 
 /* -------------------------------------------------------------------------------------------------
  * Common Fragments
@@ -89,18 +86,30 @@ export const blog = {
   }),
 
   getPosts: async (): Promise<PostMeta[]> => {
+    if (!basehub) {
+      console.warn("BASEHUB_TOKEN not configured. Returning empty posts.");
+      return [];
+    }
     const data = await basehub.query(blog.postsQuery);
 
     return data.blog.posts.items;
   },
 
   getLatestPost: async (): Promise<Post | null> => {
+    if (!basehub) {
+      console.warn("BASEHUB_TOKEN not configured. Returning null.");
+      return null;
+    }
     const data = await basehub.query(blog.latestPostQuery);
 
     return data.blog.posts.item;
   },
 
   getPost: async (slug: string): Promise<Post | null> => {
+    if (!basehub) {
+      console.warn("BASEHUB_TOKEN not configured. Returning null.");
+      return null;
+    }
     const query = blog.postQuery(slug);
     const data = await basehub.query(query);
 
@@ -162,18 +171,32 @@ export const legal = {
     }),
 
   getPosts: async (): Promise<LegalPost[]> => {
+    if (!basehub) {
+      console.warn(
+        "BASEHUB_TOKEN not configured. Returning empty legal posts."
+      );
+      return [];
+    }
     const data = await basehub.query(legal.postsQuery);
 
     return data.legalPages.items;
   },
 
   getLatestPost: async (): Promise<LegalPost | null> => {
+    if (!basehub) {
+      console.warn("BASEHUB_TOKEN not configured. Returning null.");
+      return null;
+    }
     const data = await basehub.query(legal.latestPostQuery);
 
     return data.legalPages.item;
   },
 
   getPost: async (slug: string): Promise<LegalPost | null> => {
+    if (!basehub) {
+      console.warn("BASEHUB_TOKEN not configured. Returning null.");
+      return null;
+    }
     const query = legal.postQuery(slug);
     const data = await basehub.query(query);
 

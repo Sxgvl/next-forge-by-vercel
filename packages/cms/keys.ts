@@ -6,7 +6,10 @@ export const keys = () =>
     server: {
       BASEHUB_TOKEN: z
         .string()
-        .startsWith("bshb_pk_")
+        .refine(
+          (val) => !val || val.startsWith("bshb_pk_"),
+          "BASEHUB_TOKEN must start with bshb_pk_ when provided"
+        )
         .optional()
         .or(z.literal("")),
     },
